@@ -1,0 +1,2 @@
+# templates
+Portainer templates
