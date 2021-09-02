@@ -1,0 +1,49 @@
+{
+	"version": "2",
+	"templates": [{
+			"type": 3,
+			"title": "Odoo",
+			"description": "Open-source business app",
+			"note": "Deploys a odoo instance ",
+			"categories": ["project-management"],
+			"platform": "linux",
+		        "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/odoo.png",
+			"repository": {
+				"url": "https://github.com/hadooc-tn/templates",
+				"stackfile": "odoo-stack.yml"
+			},
+			"env": [{
+				"name": "$IMAGE",
+				"label": "image ",
+				"description": "Image docker for odoo ."
+			},
+                        {
+				"name": "$HOST",
+				"label": "PostgreSQL database host ",
+				"description": "PostgreSQL database host ."
+                         },
+                         {
+			 	"name": "PASSWORD",
+				"label": "PASSWORD ",
+				"description": "Database passwor ."
+                         },
+                         {
+			 	"name": "DOMAIN-NAME",
+				"label": "DOMAIN-NAME ",
+				"description": "DOMAIN-NAME for odoo ."
+                         },
+                         {
+			 	"name": "STACK",
+				"label": "STACK NAME ",
+				"description": "STACK NAME for odoo ."
+                         },
+                         {
+			 	"name": "STACK_long",
+				"label": "STACK_long NAME ",
+				"description": "STACK_long NAME for odoo ."
+                         },
+                       ]
+		},
+
+	]
+}
