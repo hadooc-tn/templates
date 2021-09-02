@@ -1,0 +1,45 @@
+version: '3.5'
+services:
+  odoo:
+    image: $IMAGE
+    environment:
+      HOST: $HOST
+      PASSWORD: $PASSWORD
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.$STACK.rule=Host(`$DOMAIN-NAME`)"      
+        - "traefik.http.routers.$STACK.tls.certresolver=myresolver"
+        - "traefik.http.routers.$STACK.entrypoints=websecure"
+        - "traefik.http.routers.$STACK.service=hadooc"
+        - "traefik.http.services.$STACK.loadbalancer.server.port=8069"             
+        - "traefik.http.routers.$STACK_long.rule=Host(`$DOMAIN-NAME`) && PathPrefix(`/longpolling/`)"
+        - "traefik.http.routers.$STACK_long.tls.certresolver=myresolver"
+        - "traefik.http.routers.$STACK_long.entrypoints=websecure"
+        - "traefik.http.routers.$STACK_long.service=$STACK_long"
+        - "traefik.http.services.$STACK_long.loadbalancer.server.port=8072" 
+    configs:
+      - source: $STACK
+        target: /opt/odoo/etc/odoo.conf
+    volumes:
+      - odoo-data:/opt/odoo/data
+    networks:
+      - web
+      - db
+
+configs:
+  $STACK:
+    external: true
+
+volumes:
+  odoo-data:
+
+networks:
+  web:
+    external: true
+  db:
+    external: true
