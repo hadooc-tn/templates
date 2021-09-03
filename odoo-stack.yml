@@ -14,14 +14,14 @@ services:
         condition: on-failure
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.$name.rule=Host(`$domaine`)"   
-        - "traefik.http.routers.$name.entrypoints=web"
-        - "traefik.http.routers.$name.service=$name"
-        - "traefik.http.services.$name.loadbalancer.server.port=8069"         
-        - "traefik.http.routers.$name+_long.rule=Host(`$domaine`) && PathPrefix(`/longpolling/`)"
-        - "traefik.http.routers.$name+_long.entrypoints=web"
-        - "traefik.http.routers.$name+_long.service=$name+_long"
-        - "traefik.http.services.$name+_long.loadbalancer.server.port=8072" 
+        - "traefik.http.routers.$NAME.rule=Host(`$DOMAIN`)"   
+        - "traefik.http.routers.$NAME.entrypoints=web"
+        - "traefik.http.routers.$NAME.service=$NAME"
+        - "traefik.http.services.$NAME.loadbalancer.server.port=8069"         
+        - "traefik.http.routers.$NAME+_long.rule=Host(`$DOMAIN`) && PathPrefix(`/longpolling/`)"
+        - "traefik.http.routers.$NAME+_long.entrypoints=web"
+        - "traefik.http.routers.$NAME+_long.service=$NAME+_long"
+        - "traefik.http.services.$NAME+_long.loadbalancer.server.port=8072" 
     configs:
       - source: odoo.conf
         target: /opt/odoo/etc/odoo.conf
