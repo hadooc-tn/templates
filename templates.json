@@ -9,7 +9,7 @@
 			"platform": "linux",
 		        "logo": "https://raw.githubusercontent.com/hadooc-tn/templates/main/odoo.png",
 			"repository": {
-				"url": "https://github.com/hadooc-tn/templates",
+				"url": "https://github.com/hadooc-tn/templates/blob/main/stack",
 				"stackfile": "odoo-stack.yml"
 			},
 			"env": [{
