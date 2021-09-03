@@ -1,10 +1,12 @@
-version: '3.5'
+version: '3.3'
 services:
   odoo:
     image: $IMAGE
     environment:
       HOST: $HOST
       PASSWORD: $PASSWORD
+    ports:
+      - 8077:8069
     deploy:
       mode: replicated
       replicas: 1
@@ -12,18 +14,16 @@ services:
         condition: on-failure
       labels:
         - "traefik.enable=true"
-        - "traefik.http.routers.$STACK.rule=Host(`$DOMAIN-NAME`)"      
-        - "traefik.http.routers.$STACK.tls.certresolver=myresolver"
-        - "traefik.http.routers.$STACK.entrypoints=websecure"
-        - "traefik.http.routers.$STACK.service=hadooc"
-        - "traefik.http.services.$STACK.loadbalancer.server.port=8069"             
-        - "traefik.http.routers.$STACK_long.rule=Host(`$DOMAIN-NAME`) && PathPrefix(`/longpolling/`)"
-        - "traefik.http.routers.$STACK_long.tls.certresolver=myresolver"
-        - "traefik.http.routers.$STACK_long.entrypoints=websecure"
-        - "traefik.http.routers.$STACK_long.service=$STACK_long"
-        - "traefik.http.services.$STACK_long.loadbalancer.server.port=8072" 
+        - "traefik.http.routers.$name.rule=Host(`$domaine`)"   
+        - "traefik.http.routers.$name.entrypoints=web"
+        - "traefik.http.routers.$name.service=$name"
+        - "traefik.http.services.$name.loadbalancer.server.port=8069"         
+        - "traefik.http.routers.$name+_long.rule=Host(`$domaine`) && PathPrefix(`/longpolling/`)"
+        - "traefik.http.routers.$name+_long.entrypoints=web"
+        - "traefik.http.routers.$name+_long.service=$name+_long"
+        - "traefik.http.services.$name+_long.loadbalancer.server.port=8072" 
     configs:
-      - source: $STACK
+      - source: odoo.conf
         target: /opt/odoo/etc/odoo.conf
     volumes:
       - odoo-data:/opt/odoo/data
@@ -32,7 +32,7 @@ services:
       - db
 
 configs:
-  $STACK:
+  odoo.conf:
     external: true
 
 volumes:
