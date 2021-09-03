@@ -28,19 +28,14 @@
 				"description": "Database passwor ."
                          },
                          {
-			 	"name": "DOMAIN-NAME",
-				"label": "DOMAIN-NAME ",
+			 	"name": "DOMAIN",
+				"label": "DOMAIN ",
 				"description": "DOMAIN-NAME for odoo ."
                          },
                          {
-			 	"name": "STACK",
+			 	"name": "NAME",
 				"label": "STACK NAME ",
 				"description": "STACK NAME for odoo ."
-                         },
-                         {
-			 	"name": "STACK_long",
-				"label": "STACK_long NAME ",
-				"description": "STACK_long NAME for odoo ."
                          },
                        ]
 		},
